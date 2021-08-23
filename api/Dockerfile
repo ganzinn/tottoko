@@ -11,5 +11,10 @@ RUN apk update && \
 WORKDIR /app
 COPY Gemfile Gemfile.lock /app/
 RUN bundle install
-
 COPY . .
+
+COPY entrypoint.sh /usr/bin/
+RUN chmod +x /usr/bin/entrypoint.sh
+EXPOSE 3000
+ENTRYPOINT ["entrypoint.sh"]
+CMD ["rails", "s", "-b", "0.0.0.0"]
