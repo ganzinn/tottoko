@@ -1,4 +1,4 @@
-version: "3.9"
+version: '3.8'
 services:
   db:
     image: mysql:8.0.21 # AWS RDSのバージョンに合わせる
@@ -18,7 +18,7 @@ services:
     volumes:
       - ./api:/app
     ports:
-      - "3000:3000"
+      - '3000:3000'
     environment:
       RAILS_ENV: development
       # RAILS_ENV: production
