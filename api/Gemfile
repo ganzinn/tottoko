@@ -27,6 +27,7 @@ gem 'rack-cors'
 
 gem 'devise'
 gem 'devise_token_auth'
+gem 'active_hash'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -44,6 +45,7 @@ group :development do
   gem 'spring'
 
   gem 'rubocop', require: false
+  gem 'rubocop-rails', require: false
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
