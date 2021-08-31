@@ -4,4 +4,7 @@ class Scope < ActiveHash::Base
     { id: 2, value: '家族みんな', targets: [1, 2, 3, 4, 5, 6, 7, 8] },
     { id: 3, value: '一般公開' }
   ]
+
+  include ActiveHash::Associations
+  has_many :works
 end
