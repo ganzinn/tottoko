@@ -5,7 +5,7 @@ class Api::V1::UserCreatorsController < ApplicationController
     @family_creator_form = FamilyCreatorForm.new(family_creator_form_params)
     if @family_creator_form.valid?
       @family_creator_form.save
-      render json: {success: true }
+      render status: 201, json: {success: true }
     else
       render status: 400, json: {success: false, message: @family_creator_form.errors}
     end
