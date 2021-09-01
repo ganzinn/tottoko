@@ -6,7 +6,8 @@ RUN apk update && \
     apk add --no-cache \
         build-base \
         mysql-dev \
-        tzdata
+        tzdata \
+        imagemagick
 
 WORKDIR /app
 COPY Gemfile Gemfile.lock /app/
