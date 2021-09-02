@@ -4,7 +4,7 @@ class Api::V1::UserCreatorsController < ApplicationController
   def create
     @family_creator_form = FamilyCreatorForm.new(family_creator_form_params)
     if @family_creator_form.valid?
-      @family_creator_form.save
+      @family_creator_form.save!
       render status: 201, json: {success: true }
     else
       render status: 400, json: {success: false, message: @family_creator_form.errors}
@@ -27,9 +27,10 @@ class Api::V1::UserCreatorsController < ApplicationController
       :creator_name,
       :creator_date_of_birth,
       :creator_gender_id,
-      :relation_id
+      :relation_id,
+      :user_id
     ).merge(
-      user_id: current_api_v1_user.id
+      current_user_id: current_api_v1_user.id
     )
   end
 end
