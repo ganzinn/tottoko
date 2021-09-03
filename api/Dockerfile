@@ -4,6 +4,7 @@ ENV TZ=Asia/Tokyo
 
 RUN apk update && \
     apk add --no-cache \
+        less \
         build-base \
         mysql-dev \
         tzdata \
