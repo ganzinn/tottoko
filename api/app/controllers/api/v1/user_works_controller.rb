@@ -59,7 +59,7 @@ class Api::V1::UserWorksController < ApplicationController
 
   def user_check
     if current_api_v1_user.id != work_params[:user_id].to_i
-      render status: 401, json: {success: false, message: 'Unauthorized'}
+      render status: 401, json: {success: false, message: 'Unauthorized'} and return
     end
   end
 end
