@@ -1,5 +1,6 @@
 class Api::V1::UserWorksController < ApplicationController
   before_action :authenticate_api_v1_user!
+  before_action :user_check
 
   def index
     user_creator_ids = Family.where(user_id: current_api_v1_user.id).pluck(:creator_id)
@@ -7,8 +8,8 @@ class Api::V1::UserWorksController < ApplicationController
 
     # 表示する子ども(creator)の選択。クエリパラメータで絞り込み可能とする
     if params[:creator_id]
-      if user_creator_ids.include?(params[:creator_id].to_i)
-        select_creator_ids = params[:creator_id].to_i
+      if user_creator_ids.include?(work_params[:creator_id].to_i)
+        select_creator_ids = work_params[:creator_id].to_i
       else
         render status: 404, json: {success: false, message: 'Not found'}
       end
@@ -27,7 +28,7 @@ class Api::V1::UserWorksController < ApplicationController
 
   def create
     family = Family.find_by(user_id: current_api_v1_user.id, creator_id: work_params[:creator_id])
-    work = Work.new(work_params)
+    work = Work.new(work_params.except(:user_id))
 
     #子ども（creator）との関係が「父母」でない場合
     unless family && [1, 2].include?(family.relation_id)
@@ -46,6 +47,7 @@ class Api::V1::UserWorksController < ApplicationController
 
   def work_params
     params.permit(
+      :user_id,
       :date,
       :title,
       :description,
@@ -53,5 +55,11 @@ class Api::V1::UserWorksController < ApplicationController
       :creator_id,
       images: []
     )
+  end
+
+  def user_check
+    if current_api_v1_user.id != work_params[:user_id].to_i
+      render status: 401, json: {success: false, message: 'Unauthorized'}
+    end
   end
 end

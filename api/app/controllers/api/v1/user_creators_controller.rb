@@ -1,8 +1,9 @@
 class Api::V1::UserCreatorsController < ApplicationController
   before_action :authenticate_api_v1_user!
+  before_action :user_check
 
   def create
-    @family_creator_form = FamilyCreatorForm.new(family_creator_form_params)
+    @family_creator_form = FamilyCreatorForm.new(family_creator_form_params.except(:user_id))
     if @family_creator_form.valid?
       @family_creator_form.save!
       render status: 201, json: {success: true }
@@ -12,9 +13,6 @@ class Api::V1::UserCreatorsController < ApplicationController
   end
 
   def index
-    if current_api_v1_user.id != params[:user_id].to_i
-      render status: 401, json: {success: false, message: 'Unauthorized'}
-    end
     @user_creators = Creator.where(
       id: Family.where(user_id: current_api_v1_user.id).select(:creator_id)
     )
@@ -24,6 +22,7 @@ class Api::V1::UserCreatorsController < ApplicationController
 
   def family_creator_form_params
     params.permit(
+      :user_id,
       :creator_name,
       :creator_date_of_birth,
       :creator_gender_id,
@@ -31,5 +30,11 @@ class Api::V1::UserCreatorsController < ApplicationController
     ).merge(
       current_user_id: current_api_v1_user.id
     )
+  end
+
+  def user_check
+    if current_api_v1_user.id != family_creator_form_params[:user_id].to_i
+      render status: 401, json: {success: false, message: 'Unauthorized'}
+    end
   end
 end
