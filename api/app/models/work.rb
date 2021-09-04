@@ -30,13 +30,7 @@ class Work < ApplicationRecord
       message: '選択肢から指定してください'
     }
   
-  # 相関チェック
-  validate :creator_exists?
-  def creator_exists?
-    errors.add(:creator_id, '作成者が存在しません') unless Creator.exists?(creator_id)
-  end
   # ----------------------------------------------------------------
-
 
   # 画像データのURL取得
   def images_url
