@@ -32,7 +32,7 @@ class Api::V1::UserWorksController < ApplicationController
 
     #子ども（creator）との関係が「父母」でない場合
     unless family && [1, 2].include?(family.relation_id)
-      render status: 401, json: {success: false, message: 'Unauthorized'}
+      render status: 401, json: {success: false, message: 'Unauthorized'} and return
     end
 
     if work.valid?
