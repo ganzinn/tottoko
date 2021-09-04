@@ -1,15 +1,13 @@
 class FamilyCreatorForm
   include ActiveModel::Model
-  attr_accessor :user_id,
-                :current_user_id,
-                :creator_id,
+  attr_accessor :current_user_id,
                 :relation_id,
                 :creator_name,
                 :creator_date_of_birth,
                 :creator_gender_id
 
   # バリデーション -------------------------------------------------
-  # 共通チェック
+  # 共通単体チェック
   with_options presence: { message: '必須入力です'} do
     validates :creator_name
     validates :creator_date_of_birth
@@ -17,7 +15,7 @@ class FamilyCreatorForm
     validates :relation_id
   end
 
-  #個別チェック
+  # 単体チェック
   validates :creator_name,
     length: { maximum: 40, message: '40字以内で指定してください' }
   validates :creator_date_of_birth,
