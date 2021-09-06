@@ -27,7 +27,8 @@ class FamilyCreatorForm
     }
   validates :relation_id,
     numericality: {
-      greater_than_or_equal_to: 1, less_than_or_equal_to: 8,
+      # 「パパ・ママ」のみ
+      greater_than_or_equal_to: 1, less_than_or_equal_to: 2,
       message: '選択肢から指定してください'
     }
   # ----------------------------------------------------------------
