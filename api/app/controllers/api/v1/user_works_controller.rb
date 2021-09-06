@@ -6,8 +6,8 @@ class Api::V1::UserWorksController < ApplicationController
     family = Family.find_by(user_id: current_api_v1_user.id, creator_id: work_params[:creator_id])
     work = Work.new(work_params.except(:user_id))
 
-    #子ども（creator）との関係が「父母」でない場合
-    unless family && [1, 2].include?(family.relation_id)
+    #子ども（creator）との関係が「パパ・ママ」でない場合
+    unless Family.edit_permission_check(family)
       render status: 401, json: {success: false, message: 'Unauthorized'} and return
     end
 
