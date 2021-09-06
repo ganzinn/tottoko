@@ -4,6 +4,6 @@ json.scope do
   json.value work.scope.attributes[:value]
 end
 json.creator do
-  json.extract! work.creator, :id, :name
+  json.extract! work.creator, :id, :name, :date_of_birth
 end
 json.images_url work.images_url
