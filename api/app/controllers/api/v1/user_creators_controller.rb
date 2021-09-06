@@ -3,9 +3,9 @@ class Api::V1::UserCreatorsController < ApplicationController
   before_action :user_check
 
   def create
-    @family_creator_form = FamilyCreatorForm.new(family_creator_form_params.except(:user_id))
-    if @family_creator_form.valid?
-      @family_creator_form.save!
+    family_creator_form = FamilyCreatorForm.new(family_creator_form_params.except(:user_id))
+    if family_creator_form.valid?
+      family_creator_form.save!
       render status: 201, json: {success: true }
     else
       render status: 422, json: {success: false, message: @family_creator_form.errors}
