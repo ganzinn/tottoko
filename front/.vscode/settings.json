@@ -35,5 +35,6 @@
     "files.insertFinalNewline": true,
     "files.trimTrailingWhitespace": true,
     "npm.packageManager": "yarn",
-    "typescript.enablePromptUseWorkspaceTsdk": true
+    "typescript.enablePromptUseWorkspaceTsdk": true,
+    "typescript.tsdk": "node_modules/typescript/lib"
   }
